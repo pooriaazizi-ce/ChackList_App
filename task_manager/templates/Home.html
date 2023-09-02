@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Task Manager : Home</title>
+
+</head>
+
+<body class='body'>
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% if all_items %}
+
+        <table class="table table-bordered table-hover">
+        <caption>List of Undone tasks</caption>
+            <tr class="table-primary">
+                <td><center>Up Coming Tasks</center></td>
+                <td><center>Start</center></td>
+                <td><center>End</center></td>
+                <td><center>Make Done</center></td>
+                <td><center>Delete</center></td>
+            </tr>
+            {% for i in all_items %}
+                {% if not i.completed %}
+                    <tr class="table-info">
+                        <td>{{ i.item }}</td>
+                        <td>{{ i.start_date }}</td>
+                        <td>{{ i.end_date }}</td>
+                        <td><center><a href={% url 'cross_off' i.id %}>Done</a></center></td>
+                        <td><center><a href={% url 'delete' i.id %}>Delete</a></center></td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+
+        <br/>
+
+        <table class="table table-bordered table-hover">
+        <caption>List of completed tasks</caption>
+            <tr class="table-warning">
+                <td><center>Done Tasks</center></td>
+                <td><center>Start</center></td>
+                <td><center>End</center></td>
+                <td><center>Make Undone</center></td>
+                <td><center>Delete</center></td>
+            </tr>
+            {% for i in all_items %}
+                {% if i.completed %}
+                    <tr class="table-light">
+                        <td class='striker'>{{ i.item }}</td>
+                        <td>{{ i.start_date }}</td>
+                        <td>{{ i.end_date }}</td>
+                        <td><center><a href={% url 'uncross' i.id %}>UnDone</a></center></td>
+                        <td><center><a href={% url 'delete' i.id %}>Delete</a></center></td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+
+    {% endif %}
+{% endblock %}
+</body>
+</html>

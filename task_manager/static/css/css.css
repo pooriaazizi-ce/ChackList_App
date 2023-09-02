@@ -1,0 +1,12 @@
+.striker{
+    text-decoration: line-through;
+}
+.body{
+    background: rgba(122, 167, 167, 0.2);
+}
+input{
+    margin: 5px;
+}
+button{
+    margin: 5px;
+}
